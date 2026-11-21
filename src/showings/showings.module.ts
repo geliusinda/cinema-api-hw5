@@ -1,0 +1,18 @@
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { FilmsModule } from '../films/films.module.js';
+import { HallsModule } from '../halls/halls.module.js';
+import { Showing, ShowingSchema } from './showing.schema.js';
+import { ShowingsResolver } from './showings.resolver.js';
+import { ShowingsService } from './showings.service.js';
+
+@Module({
+  imports: [
+    MongooseModule.forFeature([{ name: Showing.name, schema: ShowingSchema }]),
+    FilmsModule,
+    HallsModule,
+  ],
+  providers: [ShowingsResolver, ShowingsService],
+  exports: [ShowingsService, MongooseModule],
+})
+export class ShowingsModule {}
